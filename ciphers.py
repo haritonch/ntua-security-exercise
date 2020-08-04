@@ -143,13 +143,28 @@ class Permutation:
         return decrypted[:self.plaintext_length]
 
 
+class Playfair:
+    def __init__(self, key):
+        key.replace('J', 'I') # J gets replaced with I
+        az = 'ABCDEFGHIKLMNOPQRSTUVWXYZ'
+        s = set()
+        i = 0
+        table = [[0] * 5 for _ in range(5)]
+        for c in key + az:
+            if c not in s:
+                table[i // 5][i % 5] = c
+                s.add(c)
+                i += 1
+        for row in table:
+            print(row)
+
+    def encrypt(self, plaintext):
+        pass
+
+    def decrypt(self, ciphertext):
+        pass
+
+
 if __name__ == '__main__':
-    message = 'HELLO WORLD'
-    key = 'KEY'
-    print(f'Message: {message}')
-    print(f'Key: {key}')
-    cipher = Vigenere('MYKEY')
-    ciphertext = cipher.encrypt(message)
-    print(f'Ciphertext: {ciphertext}')
-    dec = cipher.decrypt(ciphertext)
-    print(f'Decrypted: {dec}')
+    cipher = Playfair('KEY')
+    plaintext = 'HELLO'
